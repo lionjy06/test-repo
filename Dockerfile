@@ -5,7 +5,7 @@ COPY tsconfig.json .
 COPY ./src ./src
 RUN yarn install --frozen-lockfile
 RUN yarn build
-
+# 
 FROM node:16-alpine
 WORKDIR /app
 COPY package.json .

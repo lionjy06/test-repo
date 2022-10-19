@@ -13,3 +13,15 @@ script:
 
 after_success: 
   - echo "test succeded"
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "test"
+  env: "Test-env"
+  bucker_name: "elasticbeanstalk-ap-northeast-2-831433581026"
+  bucket_path: "test"
+  on:
+    branch: master
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_ACCESS_KEY

@@ -6,13 +6,14 @@ services:
   - docker
 
 before_install: 
-  - docker build -t abb ./
+  - docker build -t abb -f Dockerfile.dev ./
 
 script: 
   - docker run -e CI=true abb yarn test
-
+ 
 after_success: 
-  - echo "test succeded"
+  - docker build -t lionjy06/test-repo ./
+  - docker run -it lionjy06/test-repo
 
 deploy:
   provider: elasticbeanstalk

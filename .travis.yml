@@ -12,8 +12,14 @@ script:
   - docker run -e CI=true abb yarn test
  
 after_success: 
-  - docker build -t lionjy06/test-repo ./
-  - docker run -it lionjy06/test-repo
+  - docker build -t lionjy06/backend ./
+  - docker build -t linojy06/nginx ./nginx/
+
+  - docker push linojy06/backend
+  - docker push lionjy06/nginx
+
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+  
 
 deploy:
   provider: elasticbeanstalk

@@ -23,20 +23,16 @@ COPY ./src ./src
 RUN yarn install --frozen-lockfile
 RUN yarn build
 RUN echo "builder stage"
-CMD yarn start
 # CMD yarn start
 
 FROM node:16-alpine
 WORKDIR /deploy
-COPY ./Dockerfile ./
 COPY ./tsconfig.json ./
-COPY ./docker-compose.yml ./
 COPY ./package.json ./
 COPY ./yarn.lock ./
 COPY ./src ./src
-COPY ./test ./test
 RUN yarn install --frozen-lockfile --production
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/dist /deploy/dist 
 RUN echo "안녕하심까??"
 ENV NODE_ENV=production
 EXPOSE 3000
